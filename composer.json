@@ -1,0 +1,13 @@
+{
+    "name": "jaredchu/vtbulksms",
+    "description": "Viettel bulk SMS WebService",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jared Chu",
+            "email": "me@jaredchu.com"
+        }
+    ],
+    "require": {}
+}
