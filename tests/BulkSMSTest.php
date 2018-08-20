@@ -13,10 +13,15 @@ use JC\Viettel\WebService\BulkSMS\MT;
 
 class BulkSMSTest extends PHPUnit_Framework_TestCase
 {
-    const WS_URL = 'http://203.190.170.43:8998/bulkapi?wsdl';
+    const WS_URL = 'http://125.235.4.202:8998/bulkapi?wsdl';
     const USER = 'test';
     const PASSWORD = 'test';
     const CP_CODE = 'CPCODE';
+
+    public function testGetIP(){
+        $service = new BulkSMS(self::WS_URL, self::USER, self::PASSWORD, self::CP_CODE);
+        $this->assertNotEmpty($service->GetIP()->return);
+    }
 
     public function testSendSingle()
     {
@@ -24,9 +29,7 @@ class BulkSMSTest extends PHPUnit_Framework_TestCase
         $service->SetMT(new MT(7076, "message content"));
 
         $result = $service->SendSingle('0988999888');
-
-        $service->ResetSend();
-        $this->assertTrue($service->RequestID === BulkSMS\Enums::REQUEST_ID_FIRST);
+        var_dump($result);
     }
 
     public function testSendMulti()

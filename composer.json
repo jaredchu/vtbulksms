@@ -9,7 +9,10 @@
             "email": "me@jaredchu.com"
         }
     ],
-    "require": {},
+    "require": {
+        "PHP": ">=5.6",
+        "ext-soap": "*"
+    },
     "require-dev": {
         "phpunit/phpunit": "^4.0 || ^5.0"
     },
