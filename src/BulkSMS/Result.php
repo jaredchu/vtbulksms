@@ -15,7 +15,7 @@ class Result
     public $IsSuccess;
     public $ErrorCode;
     public $ErrorMessage;
-    public $response;
+    public $Response;
 
     /**
      * Result constructor.

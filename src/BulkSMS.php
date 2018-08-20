@@ -74,13 +74,14 @@ class BulkSMS
             ]);
 
             $result->IsSuccess = true;
-            $result->response = $response;
+            $result->Response = $response;
         } catch (\Exception $ex) {
             $result->IsSuccess = false;
             $result->ErrorCode = $ex->getCode();
             $result->ErrorMessage = $ex->getMessage();
         }
 
+        $this->AfterFirstSend();
         return $result;
     }
 
