@@ -1,10 +1,12 @@
 # Viettel bulk SMS WebService
 
 ## Cài đặt
-`$ composer require jaredchu/vtbulksms:dev-master`
+```
+$ composer require jaredchu/vtbulksms:dev-master
+```
 
 ## Hướng dẫn sử dụng
-```
+```php
 use JC\Viettel\WebService\BulkSMS;
 use JC\Viettel\WebService\BulkSMS\MT;
 
