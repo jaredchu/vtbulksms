@@ -1,5 +1,7 @@
 # Viettel bulk SMS WebService
 
+Thư viện PHP hỗ trợ tương tác với API Bulk SMS của Viettel.
+
 ## Cài đặt
 ```
 $ composer require jaredchu/vtbulksms:dev-master
@@ -21,7 +23,8 @@ $results = $service->SendMulti(['0999888991', '0999888992', '0999888993']);
 $results = $service->SendMulti(['0999888994', '0999888995', '0999888996']);
 
 // thay thay đổi MT thì phải reset
-$service->ResetSend();
+$service->ResetSend(); // cái này chắc không cần nữa vì sẽ thêm vào hàm SetMT luôn
+
 $service->SetMT(new MT(7076, "nội dung tin nhắn 2"));
 $results = $service->SendMulti(['0999888991', '0999888992', '0999888993']);
 $results = $service->SendMulti(['0999888994', '0999888995', '0999888996']);
