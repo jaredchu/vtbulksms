@@ -34,16 +34,26 @@ class BulkSMSTest extends PHPUnit_Framework_TestCase
 
     public function testSendSingle()
     {
-        self::$service->SetMT(new MT(7076, "message content"));
+        self::$service->SetMT(new MT(7076, "testSendSingle"));
         $result = self::$service->SendSingle(self::$numbers[0]);
         var_dump($result->Response);
+        var_dump($result->Error->getMessage());
     }
 
     public function testSendMulti()
     {
-        self::$service->SetMT(new MT(7076, "message content"));
+        self::$service->SetMT(new MT(7076, "testSendMulti 1"));
+        $results = self::$service->SendMulti(self::$numbers);
 
+        self::$service->SetMT(new MT(7076, "testSendMulti 2"));
         $results = self::$service->SendMulti(self::$numbers);
-        $results = self::$service->SendMulti(self::$numbers);
+    }
+
+    public function testCheckBalance(){
+        var_dump(self::$service->CheckBalance());
+    }
+
+    public function testGetCpCode(){
+        var_dump(self::$service->GetCpCode());
     }
 }

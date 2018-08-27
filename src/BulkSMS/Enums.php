@@ -22,4 +22,5 @@ class Enums
     const FUNCTION_BULK_SMS = 'wsCpMt';
     const FUNCTION_CHECK_BALANCE = 'checkBalance';
     const FUNCTION_GET_FAIL_SUB = 'getFailSub';
+    const FUNCTION_GET_CP_CODE = 'wsGetCpCode';
 }

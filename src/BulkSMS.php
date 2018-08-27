@@ -85,6 +85,33 @@ class BulkSMS
         return $result;
     }
 
+    public function CheckBalance(){
+        try {
+            $response = $this->client->__soapCall(Enums::FUNCTION_CHECK_BALANCE, [
+                'User' => $this->User,
+                'Password' => $this->Password,
+                'CPCode' => $this->CPCode
+            ]);
+
+            return $response;
+        } catch (\Exception $ex) {
+            return false;
+        }
+    }
+
+    public function GetCpCode(){
+        try {
+            $response = $this->client->__soapCall(Enums::FUNCTION_GET_CP_CODE, [
+                'User' => $this->User,
+                'Password' => $this->Password
+            ]);
+
+            return $response;
+        } catch (\Exception $ex) {
+            return false;
+        }
+    }
+
     public function SendMulti($ReceiverIDs)
     {
         $results = array_map(array($this, 'SendSingle'), $ReceiverIDs);
