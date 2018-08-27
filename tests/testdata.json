@@ -1,0 +1,15 @@
+{
+  "Setting": {
+    "WsUrl": "http://125.235.4.202:8998/bulkapi?wsdl",
+    "User": "test",
+    "Password": "test",
+    "CpCode": "CP_CODE"
+  },
+  "Numbers": [
+    "0999888991",
+    "0999888992",
+    "0999888993",
+    "0999888994",
+    "0999888995"
+  ]
+}

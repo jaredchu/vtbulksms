@@ -48,6 +48,7 @@ class BulkSMS
     public function SetMT($MT)
     {
         $this->MT = $MT;
+        $this->ResetSend();
     }
 
     public function GetIP(){
@@ -77,8 +78,7 @@ class BulkSMS
             $result->Response = $response;
         } catch (\Exception $ex) {
             $result->IsSuccess = false;
-            $result->ErrorCode = $ex->getCode();
-            $result->ErrorMessage = $ex->getMessage();
+            $result->Error = $ex;
         }
 
         $this->AfterFirstSend();

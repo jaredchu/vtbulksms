@@ -13,33 +13,37 @@ use JC\Viettel\WebService\BulkSMS\MT;
 
 class BulkSMSTest extends PHPUnit_Framework_TestCase
 {
-    const WS_URL = 'http://125.235.4.202:8998/bulkapi?wsdl';
-    const USER = 'test';
-    const PASSWORD = 'test';
-    const CP_CODE = 'CPCODE';
+    /**
+     * @var BulkSMS
+     */
+    private static $service;
+    private static $numbers;
+    private static $dataFile = './testdata.json';
 
-    public function testGetIP(){
-        $service = new BulkSMS(self::WS_URL, self::USER, self::PASSWORD, self::CP_CODE);
-        $this->assertNotEmpty($service->GetIP()->return);
+    public static function setUpBeforeClass()
+    {
+        $jsonData = json_decode(file_get_contents(self::$dataFile));
+        self::$numbers = $jsonData->Numbers;
+        self::$service = new BulkSMS($jsonData->Setting->WsUrl, $jsonData->Setting->User, $jsonData->Setting->Password, $jsonData->Setting->CpCode);
+    }
+
+    public function testGetIP()
+    {
+        $this->assertNotEmpty(self::$service->GetIP()->return);
     }
 
     public function testSendSingle()
     {
-        $service = new BulkSMS(self::WS_URL, self::USER, self::PASSWORD, self::CP_CODE);
-        $service->SetMT(new MT(7076, "message content"));
-
-        $result = $service->SendSingle('0988999888');
-        var_dump($result);
+        self::$service->SetMT(new MT(7076, "message content"));
+        $result = self::$service->SendSingle(self::$numbers[0]);
+        var_dump($result->Response);
     }
 
     public function testSendMulti()
     {
-        $service = new BulkSMS(self::WS_URL, self::USER, self::PASSWORD, self::CP_CODE);
-        $service->SetMT(new MT(7076, "message content"));
+        self::$service->SetMT(new MT(7076, "message content"));
 
-        $results = $service->SendMulti(['0999888991', '0999888992', '0999888993']);
-        $service->ResetSend();
-
-        $results = $service->SendMulti(['0999888991', '0999888992', '0999888993']);
+        $results = self::$service->SendMulti(self::$numbers);
+        $results = self::$service->SendMulti(self::$numbers);
     }
 }

@@ -12,9 +12,14 @@ namespace JC\Viettel\WebService\BulkSMS;
 class Result
 {
     public $ReceiverID;
+    /**
+     * @var bool
+     */
     public $IsSuccess;
-    public $ErrorCode;
-    public $ErrorMessage;
+    /**
+     * @var \Error
+     */
+    public $Error;
     public $Response;
 
     /**
