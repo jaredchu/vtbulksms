@@ -51,8 +51,9 @@ class BulkSMS
         $this->ResetSend();
     }
 
-    public function GetIP(){
-        return $this->client->__soapCall(Enums::FUNCTION_GET_IP,[]);
+    public function GetIP()
+    {
+        return $this->client->__soapCall(Enums::FUNCTION_GET_IP, []);
     }
 
     public function SendSingle($ReceiverID)
@@ -61,7 +62,7 @@ class BulkSMS
 
         $result = new Result($ReceiverID);
         try {
-            $response = $this->client->__soapCall(Enums::FUNCTION_BULK_SMS, [
+            $response = $this->client->__soapCall(Enums::FUNCTION_BULK_SMS, $this->WrapBody([
                 'User' => $this->User,
                 'Password' => $this->Password,
                 'CPCode' => $this->CPCode,
@@ -72,7 +73,7 @@ class BulkSMS
                 'CommandCode' => $this->MT->CommandCode,
                 'Content' => $this->MT->Content,
                 'ContentType' => $this->MT->ContentType
-            ]);
+            ]));
 
             $result->IsSuccess = true;
             $result->Response = $response;
@@ -85,13 +86,14 @@ class BulkSMS
         return $result;
     }
 
-    public function CheckBalance(){
+    public function CheckBalance()
+    {
         try {
-            $response = $this->client->__soapCall(Enums::FUNCTION_CHECK_BALANCE, [
+            $response = $this->client->__soapCall(Enums::FUNCTION_CHECK_BALANCE, $this->WrapBody([
                 'User' => $this->User,
                 'Password' => $this->Password,
                 'CPCode' => $this->CPCode
-            ]);
+            ]));
 
             return $response;
         } catch (\Exception $ex) {
@@ -99,12 +101,13 @@ class BulkSMS
         }
     }
 
-    public function GetCpCode(){
+    public function GetCpCode()
+    {
         try {
-            $response = $this->client->__soapCall(Enums::FUNCTION_GET_CP_CODE, [
+            $response = $this->client->__soapCall(Enums::FUNCTION_GET_CP_CODE, $this->WrapBody([
                 'User' => $this->User,
                 'Password' => $this->Password
-            ]);
+            ]));
 
             return $response;
         } catch (\Exception $ex) {
@@ -128,5 +131,12 @@ class BulkSMS
     public function ResetSend()
     {
         $this->RequestID = Enums::REQUEST_ID_FIRST;
+    }
+
+    protected function WrapBody($data)
+    {
+        return [
+            'Body' => $data
+        ];
     }
 }
