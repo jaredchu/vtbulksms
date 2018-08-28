@@ -75,8 +75,8 @@ class BulkSMS
                 'ContentType' => $this->MT->ContentType
             ]));
 
-            $result->IsSuccess = true;
             $result->Response = $response;
+            $result->IsSuccess = $result->Response->return->result == Enums::RESULT_CODE_SUCCESS;
         } catch (\Exception $ex) {
             $result->IsSuccess = false;
             $result->Error = $ex;
@@ -95,21 +95,12 @@ class BulkSMS
                 'CPCode' => $this->CPCode
             ]));
 
-            return $response;
-        } catch (\Exception $ex) {
-            return false;
-        }
-    }
+            if ($response->return->errCode != Enums::ERROR_CODE_SUCCESS){
+                return false;
+            }
 
-    public function GetCpCode()
-    {
-        try {
-            $response = $this->client->__soapCall(Enums::FUNCTION_GET_CP_CODE, $this->WrapBody([
-                'User' => $this->User,
-                'Password' => $this->Password
-            ]));
+            return $response->return->balance;
 
-            return $response;
         } catch (\Exception $ex) {
             return false;
         }

@@ -23,4 +23,7 @@ class Enums
     const FUNCTION_CHECK_BALANCE = 'checkBalance';
     const FUNCTION_GET_FAIL_SUB = 'getFailSub';
     const FUNCTION_GET_CP_CODE = 'wsGetCpCode';
+
+    const ERROR_CODE_SUCCESS = 0;
+    const RESULT_CODE_SUCCESS = 1;
 }

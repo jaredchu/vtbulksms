@@ -18,7 +18,7 @@ class BulkSMSTest extends PHPUnit_Framework_TestCase
      */
     private static $service;
     private static $numbers;
-    private static $dataFile = './testdata.json';
+    private static $dataFile = __DIR__ . '/testdata.json';
 
     public static function setUpBeforeClass()
     {
@@ -36,24 +36,30 @@ class BulkSMSTest extends PHPUnit_Framework_TestCase
     {
         self::$service->SetMT(new MT(7076, "testSendSingle"));
         $result = self::$service->SendSingle(self::$numbers[0]);
-        var_dump($result->Response);
-        var_dump($result->Error->getMessage());
+        $this->assertNotFalse($result->IsSuccess);
     }
 
     public function testSendMulti()
     {
         self::$service->SetMT(new MT(7076, "testSendMulti 1"));
+        $this->assertEquals(BulkSMS\Enums::REQUEST_ID_FIRST, self::$service->RequestID);
         $results = self::$service->SendMulti(self::$numbers);
+        foreach ($results as $result) {
+            $this->assertNotFalse($result->IsSuccess);
+        }
+
+        $this->assertEquals(BulkSMS\Enums::REQUEST_ID_AFTER_FIRST, self::$service->RequestID);
 
         self::$service->SetMT(new MT(7076, "testSendMulti 2"));
+        $this->assertEquals(BulkSMS\Enums::REQUEST_ID_FIRST, self::$service->RequestID);
         $results = self::$service->SendMulti(self::$numbers);
+        foreach ($results as $result) {
+            $this->assertNotFalse($result->IsSuccess);
+        }
     }
 
-    public function testCheckBalance(){
-        var_dump(self::$service->CheckBalance());
-    }
-
-    public function testGetCpCode(){
-        var_dump(self::$service->GetCpCode());
+    public function testCheckBalance()
+    {
+        $this->assertNotFalse(self::$service->CheckBalance());
     }
 }
