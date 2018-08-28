@@ -95,11 +95,34 @@ class BulkSMS
                 'CPCode' => $this->CPCode
             ]));
 
-            if ($response->return->errCode != Enums::ERROR_CODE_SUCCESS){
+            if ($response->return->errCode != Enums::ERROR_CODE_CHECK_BALANCE_SUCCESS){
                 return false;
             }
 
             return $response->return->balance;
+
+        } catch (\Exception $ex) {
+            return false;
+        }
+    }
+
+    public function GetFailSub($alias, $date, $pageNumber, $pageSize){
+        try {
+            $response = $this->client->__soapCall(Enums::FUNCTION_GET_FAIL_SUB, $this->WrapBody([
+                'username' => $this->User,
+                'password' => $this->Password,
+                'cpCode' => $this->CPCode,
+                'alias' => $alias,
+                'date' => $date,
+                'pageNumber' => $pageNumber,
+                'pageSize' => $pageSize
+            ]));
+
+            if ($response->return->errCode != Enums::ERROR_CODE_GET_FS_SUCCESS){
+                return false;
+            }
+
+            return $response->return->result;
 
         } catch (\Exception $ex) {
             return false;

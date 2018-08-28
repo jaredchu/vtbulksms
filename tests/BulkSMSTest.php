@@ -62,4 +62,10 @@ class BulkSMSTest extends PHPUnit_Framework_TestCase
     {
         $this->assertNotFalse(self::$service->CheckBalance());
     }
+
+    public function testGetFailSub()
+    {
+        $failedSubs = self::$service->GetFailSub('alias', '30/08/2018', 1, 10);
+        $this->assertNotFalse($failedSubs);
+    }
 }
