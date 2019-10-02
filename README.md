@@ -23,7 +23,7 @@ $service = new BulkSMS($url, $user, $password, $cpCode);
 ### Gửi đơn lẻ
 ```php
 $service->SetMT(new MT(7076, "nội dung tin nhắn 1"));
-$result = $service->SendSingle($service->SendSingle('0999888990'));
+$result = $service->SendSingle('0999888990');
 // Kiểm tra gửi thành công hay chưa
 if(!$result->IsSuccess){
   var_dump($result->Response);
